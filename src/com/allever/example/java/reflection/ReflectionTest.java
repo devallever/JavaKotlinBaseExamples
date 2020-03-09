@@ -3,7 +3,9 @@ package com.allever.example.java.reflection;
 import com.allever.example.java.util.LogUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.TypeVariable;
 
 public class ReflectionTest {
     public static void main(String[] args) {
@@ -15,6 +17,7 @@ public class ReflectionTest {
         className();
         classModifier();
         classFiled();
+        classMethod();
     }
 
 
@@ -95,6 +98,32 @@ public class ReflectionTest {
             }
 
         } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void classMethod() {
+        Class clz = Cat.class;
+        try {
+            //获取私有方法
+            Method declareMethod = clz.getDeclaredMethod("sleep", int.class);
+            //获取非私有方法
+            Method method = clz.getMethod("setAge", int.class);
+
+            //获取所有方法，不包括父类
+            Method[] declareMethods = clz.getDeclaredMethods();
+            for (Method declareMethodObj : declareMethods) {
+                print("getDeclaredMethods 方法名：" + declareMethodObj.getName());
+//                TypeVariable<Method>[] typeVariable = declareMethodObj.getTypeParameters();
+            }
+
+            //获取所有public 方法　包括父类
+            Method[] methods = clz.getMethods();
+            for (Method methodObj : methods) {
+                print("getMethods 方法名：" + methodObj.getName());
+            }
+
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
     }

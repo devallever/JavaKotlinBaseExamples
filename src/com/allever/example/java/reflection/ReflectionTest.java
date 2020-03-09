@@ -129,15 +129,92 @@ public class ReflectionTest {
             //获取所有方法，不包括父类
             Method[] declareMethods = clz.getDeclaredMethods();
             for (Method declareMethodObj : declareMethods) {
-                print("getDeclaredMethods 方法名：" + declareMethodObj.getName());
-//                TypeVariable<Method>[] typeVariable = declareMethodObj.getTypeParameters();
+                print("getDeclaredMethods 方法名： " + declareMethodObj.getName());
+                Parameter[] parameters = declareMethodObj.getParameters();
+                print("以下是" + declareMethodObj.getName() + "的参数列表");
+                for (Parameter parameter : parameters) {
+                    print("getParameters 参数名： " + parameter.getName());
+                    print("getParameters 参数类型： " + parameter.getType().getName());
+                }
+
+                Class[] parameterClz = declareMethodObj.getParameterTypes();
+                for (Class aClass : parameterClz) {
+                    print("getParameterTypes 参数类型： " + aClass.getName());
+                }
+
+                for (Type genericParameterType : declareMethodObj.getGenericParameterTypes()) {
+                    print("getGenericParameterTypes 参数类型： " + genericParameterType.getTypeName());
+                }
+
+                print("以下是" + declareMethodObj.getName() + "返回值类型");
+                print(declareMethod.getName() + "的返回类型是： " +  declareMethodObj.getReturnType().getName());
+
+                int modifierValue = declareMethodObj.getModifiers();
+                print("以下是" + declareMethodObj.getName() + "修饰符");
+                print(declareMethod.getName() + "的修饰符是： " +  Modifier.toString(modifierValue));
+
+                print("以下是" + declareMethodObj.getName() + "异常类型");
+                for (Class<?> exceptionType : declareMethodObj.getExceptionTypes()) {
+                    print("getExceptionTypes 异常类型： " + exceptionType.getName());
+                }
+
+                for (Type genericExceptionType : declareMethodObj.getGenericExceptionTypes()) {
+                    print("getGenericExceptionTypes 异常类型： " + genericExceptionType.getTypeName());
+                }
             }
+
+            print("");
 
             //获取所有public 方法　包括父类
             Method[] methods = clz.getMethods();
             for (Method methodObj : methods) {
                 print("getMethods 方法名：" + methodObj.getName());
             }
+
+            print("以下是方法的操作");
+            Cat cat = new Cat(30, 10f);
+            Method staticMethod = clz.getMethod("testStatic", int.class);
+            try {
+                staticMethod.invoke(null, 3);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+            Method testNormalMethod = clz.getDeclaredMethod("testNormal");
+            testNormalMethod.setAccessible(true);
+            try {
+                testNormalMethod.invoke(cat);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+            Method normalMethod = clz.getDeclaredMethod("updateAge", int.class);
+            normalMethod.setAccessible(true);
+
+            try {
+                normalMethod.invoke(cat, 12);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+
+//            Method throwMethod = clz.getDeclaredMethod("testThrowAble", null);
+//            throwMethod.setAccessible(true);
+//            try {
+//                throwMethod.invoke(cat, null);
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            } catch (InvocationTargetException e) {
+//                e.printStackTrace();
+//                e.getCause().printStackTrace();
+//            }
+
 
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

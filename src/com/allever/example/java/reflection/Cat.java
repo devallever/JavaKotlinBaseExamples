@@ -1,5 +1,7 @@
 package com.allever.example.java.reflection;
 
+import java.util.List;
+
 public class Cat extends Animal{
 
     private int age;
@@ -9,15 +11,26 @@ public class Cat extends Animal{
 
     public String publicName = "publicName";
 
+    private List<String> cats;
+
+    public List<String> getCats() throws NullPointerException {
+        return cats;
+    }
+
+    public void setCats(List<String> cats) throws NullPointerException {
+        this.cats = cats;
+    }
+
     private Cat(int age) {
 
     }
+
 
     public Cat() {}
 
 
     public Cat(int age, float weight) {
-
+        this.age = age;
     }
 
     private void sleep(int time) {
@@ -62,5 +75,22 @@ public class Cat extends Animal{
 
     public void setPublicName(String publicName) {
         this.publicName = publicName;
+    }
+
+    private void testNormal() {
+        System.out.println("hello testNormal");
+    }
+
+    public static void testStatic(int age) {
+        System.out.println("age = " + age);
+    }
+
+    private void updateAge(int age) {
+        System.out.println(this.age + " update age to " + age);
+        this.age = age;
+    }
+
+    private void testThrowAble() {
+        throw new RuntimeException("throw a exception");
     }
 }

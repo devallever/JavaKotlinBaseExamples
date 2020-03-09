@@ -134,12 +134,12 @@ public class ReflectionTest {
 
             Constructor[] declareConstructors = clz.getDeclaredConstructors();
             for (Constructor declareConstructor : declareConstructors) {
-                print("getDeclaredConstructors 名字： " + declareConstructor.getName());
+                print("getDeclaredConstructors 名字： " + declareConstructor.toString());
             }
 
             Constructor[] constructors = clz.getConstructors();
             for (Constructor constructorObj : constructors) {
-                print("getConstructors 名字： " + constructorObj.getName());
+                print("getConstructors 名字： " + constructorObj.toString());
             }
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

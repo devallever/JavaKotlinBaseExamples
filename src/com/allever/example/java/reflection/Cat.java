@@ -9,6 +9,17 @@ public class Cat extends Animal{
 
     public String publicName = "publicName";
 
+    private Cat(int age) {
+
+    }
+
+    public Cat() {}
+
+
+    public Cat(int age, float weight) {
+
+    }
+
     private void sleep(int time) {
 
     }

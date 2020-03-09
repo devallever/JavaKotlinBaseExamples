@@ -2,10 +2,7 @@ package com.allever.example.java.reflection;
 
 import com.allever.example.java.util.LogUtils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.TypeVariable;
+import java.lang.reflect.*;
 
 public class ReflectionTest {
     public static void main(String[] args) {
@@ -18,6 +15,7 @@ public class ReflectionTest {
         classModifier();
         classFiled();
         classMethod();
+        classConstructor();
     }
 
 
@@ -123,6 +121,26 @@ public class ReflectionTest {
                 print("getMethods 方法名：" + methodObj.getName());
             }
 
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void classConstructor() {
+        Class clz = Cat.class;
+        try {
+            Constructor devlareContructor = clz.getDeclaredConstructor(int.class);
+            Constructor constructor = clz.getConstructor(int.class, float.class);
+
+            Constructor[] declareConstructors = clz.getDeclaredConstructors();
+            for (Constructor declareConstructor : declareConstructors) {
+                print("getDeclaredConstructors 名字： " + declareConstructor.getName());
+            }
+
+            Constructor[] constructors = clz.getConstructors();
+            for (Constructor constructorObj : constructors) {
+                print("getConstructors 名字： " + constructorObj.getName());
+            }
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

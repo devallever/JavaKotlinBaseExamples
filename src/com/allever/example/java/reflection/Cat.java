@@ -16,7 +16,7 @@ public class Cat {
 
     }
 
-    class CatInner{
+    static class CatInner{
 
     }
 }

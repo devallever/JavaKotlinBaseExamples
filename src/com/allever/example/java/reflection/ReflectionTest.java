@@ -2,6 +2,8 @@ package com.allever.example.java.reflection;
 
 import com.allever.example.java.util.LogUtils;
 
+import java.lang.reflect.Modifier;
+
 public class ReflectionTest {
     public static void main(String[] args) {
         new ReflectionTest().doMain();
@@ -10,6 +12,7 @@ public class ReflectionTest {
     public void doMain() {
         getClassObject();
         className();
+        classModifier();
     }
 
 
@@ -62,6 +65,19 @@ public class ReflectionTest {
         print("\n局部内部类");
         printClzName(Test.class);
 
+    }
+
+    private void classModifier() {
+        print("\n");
+        printClassModifier(Animal.class);
+        printClassModifier(Cat.CatInner.class);
+    }
+
+    private void printClassModifier(Class clz) {
+        int value = clz.getModifiers();
+        String modifers = Modifier.toString(value);
+        print("类修饰符： " + modifers);
+        print("isPublic = " + Modifier.isPublic(value));
     }
 
     private void printClzName(Class clz) {

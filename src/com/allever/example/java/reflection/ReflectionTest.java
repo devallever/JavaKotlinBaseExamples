@@ -7,6 +7,7 @@ public class ReflectionTest {
 
     public void doMain() {
         getClassObject();
+        getClassName();
     }
 
 
@@ -15,14 +16,22 @@ public class ReflectionTest {
      */
     private void getClassObject() {
         Cat cat = new Cat();
-        Class class1 = cat.getClass();
+        Class classObj = cat.getClass();
 
-        Class class2 = Cat.class;
+        classObj = Cat.class;
+        classObj = int.class;
+        classObj = String.class;
+        
 
         try {
-            Class class3 = Class.forName("com.allever.example.java.reflection.Cat");
+            classObj = Class.forName("com.allever.example.java.reflection.Cat");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
+    private void getClassName() {
+
+    }
+
 }

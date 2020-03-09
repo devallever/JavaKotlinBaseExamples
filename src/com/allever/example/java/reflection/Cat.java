@@ -1,14 +1,15 @@
 package com.allever.example.java.reflection;
 
-public class Cat {
+public class Cat extends Animal{
 
-    private String name;
     private int age;
     private float weight;
 
+    public String id;
+
     public String publicName = "publicName";
 
-    private void sleep() {
+    private void sleep(int time) {
 
     }
 

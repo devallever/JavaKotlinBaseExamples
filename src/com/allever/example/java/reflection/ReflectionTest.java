@@ -2,6 +2,7 @@ package com.allever.example.java.reflection;
 
 import com.allever.example.java.util.LogUtils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 public class ReflectionTest {
@@ -13,6 +14,7 @@ public class ReflectionTest {
         getClassObject();
         className();
         classModifier();
+        classFiled();
     }
 
 
@@ -71,6 +73,30 @@ public class ReflectionTest {
         print("\n");
         printClassModifier(Animal.class);
         printClassModifier(Cat.CatInner.class);
+    }
+
+    private void classFiled() {
+        Class clz = Cat.class;
+        try {
+            //获取私有属性
+            Field declareField = clz.getDeclaredField("age");
+            //获取非私有属性，包括父类
+            Field field = clz.getField("head");
+            //获取全部属性，不包括父类
+            Field[] declaredFields = clz.getDeclaredFields();
+            for (Field declaredField : declaredFields) {
+                print("declareField name = " + declaredField.getName());
+            }
+
+            //获取全部public属性，包括父类
+            Field[] fields = clz.getFields();
+            for (Field fieldItem : fields) {
+                print("field name = " + fieldItem.getName());
+            }
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 
     private void printClassModifier(Class clz) {

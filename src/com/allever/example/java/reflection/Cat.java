@@ -22,7 +22,7 @@ public class Cat extends Animal{
     }
 
     private Cat(int age) {
-
+        this.age = age;
     }
 
 

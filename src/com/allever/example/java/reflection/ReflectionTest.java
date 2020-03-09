@@ -236,6 +236,22 @@ public class ReflectionTest {
             for (Constructor constructorObj : constructors) {
                 print("getConstructors 名字： " + constructorObj.toString());
             }
+
+            print("以下是constructor的操作");
+            try {
+                Cat cat = (Cat) constructor.newInstance(30, 3f);
+                print("cat age = " + cat.getAge());
+
+                devlareContructor.setAccessible(true);
+                Cat cat2 = (Cat) devlareContructor.newInstance(20);
+                print("cat2 age = " + cat2.getAge());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

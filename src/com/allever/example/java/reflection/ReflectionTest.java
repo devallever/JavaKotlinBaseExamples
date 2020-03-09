@@ -77,16 +77,18 @@ public class ReflectionTest {
     }
 
     private void classFiled() {
-        Class clz = Cat.class;
+        Class clz = Animal.class;
         try {
             //获取私有属性
-            Field declareField = clz.getDeclaredField("age");
+            Field declareField = clz.getDeclaredField("priField");
             //获取非私有属性，包括父类
             Field field = clz.getField("head");
             //获取全部属性，不包括父类
             Field[] declaredFields = clz.getDeclaredFields();
             for (Field declaredField : declaredFields) {
                 print("declareField name = " + declaredField.getName());
+                print("declareField generic Type = " + declaredField.getGenericType());
+                print("declareField type = " + declaredField.getType());
             }
 
             //获取全部public属性，包括父类
@@ -95,7 +97,23 @@ public class ReflectionTest {
                 print("field name = " + fieldItem.getName());
             }
 
-        } catch (NoSuchFieldException e) {
+            Cat catA = new Cat();
+            catA.publicName = "xm";
+            print("catA name = " + catA.publicName);
+
+            Class catClz = Cat.class;
+            Field nameField = catClz.getField("publicName");
+            String catName = (String) nameField.get(catA);
+            print("反射获取name = " + catName);
+            nameField.set(catA, "winchen");
+            print("反射修改后 catA name = " + catA.publicName);
+
+            Field ageField = catClz.getDeclaredField("age");
+            ageField.setAccessible(true);
+            ageField.setInt(catA, 13);
+            print("修改后， catA age = " + catA.getAge());
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }

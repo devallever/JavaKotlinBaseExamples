@@ -1,5 +1,6 @@
 package com.allever.example.java.annotation;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -16,6 +17,7 @@ public class AnnotationTest {
         test.doMain();
     }
 
+    @MyAnnotation2(id = 23, msg = "2e")
     @MyAnnotation(id = 3, msg = "e")
     private void testMethod(int id) {
         print("执行了注解方法");
@@ -35,14 +37,21 @@ public class AnnotationTest {
             if (declaredMethod.isAnnotationPresent(MyAnnotation.class)) {
                 declaredMethod.setAccessible(true);
                 try {
+                    MyAnnotation myAnnotation = declaredMethod.getAnnotation(MyAnnotation.class);
+                    print("MyAnnotation id = " + myAnnotation.id());
+                    print("MyAnnotation msg = " + myAnnotation.msg());
+
                     declaredMethod.invoke(annotationTest, 0);
+
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.getCause().printStackTrace();
                 }
-            } else {
+            }
 
+            for (Annotation annotation : declaredMethod.getAnnotations()) {
+                print(declaredMethod.getName() + " 方法 应用了注解 " + annotation.annotationType().getSimpleName());
             }
         }
     }
